@@ -1,0 +1,2129 @@
+{
+	"info": {
+		"_postman_id": "833b2337-9ce3-4a32-95be-d3fc4b6aa97e",
+		"name": "USER Module",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28665570",
+		"_collection_link": "https://orange-moon-223926.postman.co/workspace/API_Bootcamp~3df9105d-4030-44d3-a4ef-882e3ac32168/collection/28665570-833b2337-9ce3-4a32-95be-d3fc4b6aa97e?action=share&source=collection_link&creator=28665570"
+	},
+	"item": [
+		{
+			"name": "PositiveScenarios",
+			"item": [
+				{
+					"name": "Create UserValid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//const response = pm.response.json();\r",
+									"//console.log(response);\r",
+									"//const response = JSON.parse(responseBody);\r",
+									"\r",
+									"\r",
+									"//-----------------------------------------------------\r",
+									"// let responsesName = pm.collectionVariables.get('collectionResponses');\r",
+									"// let responsesID = pm.collectionVariables.get('collectionResponsesID');\r",
+									"\r",
+									"//creating an array and adding data into it \r",
+									"// if(responsesName) {\r",
+									"//   responsesName = JSON.parse(responsesName);\r",
+									"//   responsesID = JSON.parse(responsesID);\r",
+									"// } else {\r",
+									"//   responsesName = [];\r",
+									"//   responsesID = [];\r",
+									"// }\r",
+									"\r",
+									"// responsesName.push(response.user_first_name);\r",
+									"// responsesID.push(response.user_id);\r",
+									"\r",
+									"// // Convert the 'responses' into a JSON string\r",
+									"// pm.collectionVariables.set('collectionResponses', JSON.stringify(responsesName));\r",
+									"// pm.collectionVariables.set('collectionResponsesID', JSON.stringify(responsesID));\r",
+									"\r",
+									"\r",
+									"// pm.collectionVariables.set('UserNameToDel',responsesName[0]);\r",
+									"// pm.collectionVariables.set('UserIDToDel',responsesID[1]);\r",
+									"\r",
+									"// console.log(pm.collectionVariables.get('UserNameToDel'));\r",
+									"// console.log(responsesName[1]);\r",
+									"// console.log(pm.collectionVariables.get('UserIDToDel'));\r",
+									"\r",
+									"//-------------------------------------------------------\r",
+									"\r",
+									"//Assign user_id as collection variable\r",
+									"const response = pm.response.json();\r",
+									"pm.collectionVariables.set(\"UserID_put\",response.user_id);\r",
+									"\r",
+									"//Validate Status Code\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"//Validate Content-type and header\r",
+									"pm.test(\"Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header('Content-Type');\r",
+									"    pm.response.to.have.header('Content-Type', 'application/json');\r",
+									"});\r",
+									"//Validate Status Line\r",
+									"pm.test(\"Validate Status Line\", function () {\r",
+									"    pm.response.to.have.status(\"Created\");\r",
+									"});\r",
+									"\r",
+									"//Validating Request and Response body\r",
+									"pm.test(\"Validate Request and Response Data\", function () {\r",
+									"    pm.expect(response).to.be.an(\"object\");\r",
+									"    pm.expect(response.user_first_name).to.eql(pm.variables.get(\"userfirstname\"));\r",
+									"    pm.expect(response.user_last_name).to.eql(pm.variables.get(\"userlastname\"));\r",
+									"    pm.expect(response.user_contact_number).to.eql(pm.variables.get(\"usercontactnumber\"));\r",
+									"    pm.expect(response.user_email_id).to.eql(pm.variables.get(\"useremailid\"));\r",
+									"   pm.expect(response.userAddress.plotNumber).to.eql(pm.variables.get(\"plotNumber\"));\r",
+									"   pm.expect(response.userAddress.street).to.eql(pm.variables.get(\"street\"));\r",
+									"   pm.expect(response.userAddress.state).to.eql(pm.variables.get(\"state\"));\r",
+									"   pm.expect(response.userAddress.country).to.eql(pm.variables.get(\"country\"));\r",
+									"   pm.expect(response.userAddress.zipCode).to.eql(pm.variables.get(\"zipCode\"));\r",
+									"\r",
+									"}); \r",
+									"\r",
+									"//validating response body\r",
+									"pm.test(\"Validate Response body properties\",() =>{   \r",
+									"    pm.expect(response.user_first_name).to.be.a('string');\r",
+									"    pm.expect(response.user_first_name).to.match(/^[A-Za-z]+$/);\r",
+									"    pm.expect(response.user_first_name).to.not.be.undefined;\r",
+									"    pm.expect(response.user_first_name).to.not.be.null;\r",
+									"    pm.expect(response.user_last_name).to.be.a('string');\r",
+									"    pm.expect(response.user_last_name).to.not.be.null;\r",
+									"    pm.expect(response.user_contact_number).to.not.be.undefined;\r",
+									"    pm.expect(response.user_contact_number).to.not.be.null;\r",
+									"    pm.expect(response.user_contact_number).to.be.a('number').that.is.not.a('float');\r",
+									"    pm.expect(response.user_contact_number.toString()).to.have.lengthOf(10);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//pm.globals.set(\"getbyuserNameGlobal\", response.user_first_name);\r",
+									"\r",
+									"\r",
+									"//console.log(\"Username got is --->\",\"user_first_name\");\r",
+									"\r",
+									"//Json schema validation\r",
+									"var schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"userAddress\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"addressId\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"plotNumber\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"street\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"state\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"country\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"zipCode\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"addressId\",\r",
+									"        \"plotNumber\",\r",
+									"        \"street\",\r",
+									"        \"state\",\r",
+									"        \"country\",\r",
+									"        \"zipCode\"\r",
+									"      ]\r",
+									"    },\r",
+									"    \"user_id\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    },\r",
+									"    \"user_first_name\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"user_last_name\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"user_contact_number\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    },\r",
+									"    \"user_email_id\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"creation_time\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"last_mod_time\": {\r",
+									"      \"type\": \"string\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"userAddress\",\r",
+									"    \"user_id\",\r",
+									"    \"user_first_name\",\r",
+									"    \"user_last_name\",\r",
+									"    \"user_contact_number\",\r",
+									"    \"user_email_id\",\r",
+									"    \"creation_time\",\r",
+									"    \"last_mod_time\"\r",
+									"  ]\r",
+									"}\r",
+									"pm.test(\"Schema is valid\", ()=>{\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"//pm.globals.set(\"jsonBody\", JSON.stringify(pm.iterationData.toObject()));\r",
+									"\r",
+									"if(typeof pm.variables.get('requestData')!== 'object'){\r",
+									"    pm.variables.set('requestData',pm.iterationData.toObject());\r",
+									"}\r",
+									"\r",
+									"const requestData = pm.variables.get('requestData');\r",
+									"console.log(requestData);\r",
+									"\r",
+									"if(typeof requestData!== 'object' ){\r",
+									"    console.log('No data passed from json file');\r",
+									"}\r",
+									"\r",
+									"console.log(pm.info.requestName);\r",
+									"\r",
+									"//Find current request\r",
+									"const currentRequest = requestData.requestsDatas.filter(({scenario}) => scenario === pm.info.requestName)[0];\r",
+									"\r",
+									"//If scenario has no data\r",
+									"if(!currentRequest){\r",
+									"    console.log('The scenario request ${pm.info.requestName} has no data');\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"//if(currentRequest){\r",
+									"    const variables = currentRequest.userData.shift();\r",
+									"\r",
+									"    Object.entries(variables).forEach(([key,value]) => {\r",
+									"        pm.variables.set(key,value);     \r",
+									"    });\r",
+									"    \r",
+									"        let useraddressprop = pm.variables.get(\"userAddress\");\r",
+									"        pm.collectionVariables.set(\"plotNumber\", useraddressprop.plotNumber);\r",
+									"        pm.collectionVariables.set(\"street\", useraddressprop.street);\r",
+									"        pm.collectionVariables.set(\"state\",useraddressprop.state);\r",
+									"        pm.collectionVariables.set(\"country\", useraddressprop.country);\r",
+									"        pm.collectionVariables.set(\"zipCode\", useraddressprop.zipCode);\r",
+									"//};\r",
+									"\r",
+									"pm.variables.set('requestData', requestData);\r",
+									"\r",
+									"//declare next request\r",
+									"if(currentRequest.userData.length >0){\r",
+									"    postman.setNextRequest(pm.info.requestName);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{LoginUsername}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"user_first_name\":\"{{userfirstname}}\",\r\n \"user_last_name\":\"{{userlastname}}\",\r\n \"user_contact_number\":\"{{usercontactnumber}}\",\r\n \"user_email_id\":\"{{useremailid}}\",\r\n\"userAddress\": {\r\n    \"plotNumber\":\"{{plotNumber}}\",\r\n   \"street\":\"{{street}}\",\r\n   \"state\":\"{{state}}\",\r\n    \"country\":\"{{country}}\",\r\n   \"zipCode\":\"{{zipCode}}\"\r\n }\r\n}\r\n\r\n\r\n//{{jsonBody}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/createusers",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"createusers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update UserFirstName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//validate Status code\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Validate Content-type and header\r",
+									"pm.test(\"Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header('Content-Type');\r",
+									"    pm.response.to.have.header('Content-Type', 'application/json');\r",
+									"});\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"pm.collectionVariables.set(\"getUserName\",response.user_first_name);\r",
+									"\r",
+									"//Validating Request and Response body\r",
+									"pm.test(\"Validate Request and Response Data\", function () {\r",
+									"    pm.expect(response).to.be.an(\"object\");\r",
+									"    pm.expect(response.user_first_name).to.eql(pm.variables.get(\"userfirstname\"));\r",
+									"    pm.expect(response.user_last_name).to.eql(pm.variables.get(\"userlastname\"));\r",
+									"    pm.expect(response.user_contact_number).to.eql(pm.variables.get(\"usercontactnumber\"));\r",
+									"    pm.expect(response.user_email_id).to.eql(pm.variables.get(\"useremailid\"));\r",
+									"   pm.expect(response.userAddress.plotNumber).to.eql(pm.variables.get(\"plotNumber\"));\r",
+									"   pm.expect(response.userAddress.street).to.eql(pm.variables.get(\"street\"));\r",
+									"   pm.expect(response.userAddress.state).to.eql(pm.variables.get(\"state\"));\r",
+									"   pm.expect(response.userAddress.country).to.eql(pm.variables.get(\"country\"));\r",
+									"   pm.expect(response.userAddress.zipCode).to.eql(pm.variables.get(\"zipCode\"));\r",
+									"\r",
+									"}); \r",
+									"\r",
+									"//validating response body\r",
+									"pm.test(\"Validate Response body properties\",() =>{   \r",
+									"    pm.expect(response.user_first_name).to.be.a('string');\r",
+									"    pm.expect(response.user_first_name).to.match(/^[A-Za-z]+$/);\r",
+									"    pm.expect(response.user_first_name).to.not.be.undefined;\r",
+									"    pm.expect(response.user_first_name).to.not.be.null;\r",
+									"    pm.expect(response.user_last_name).to.be.a('string');\r",
+									"    pm.expect(response.user_last_name).to.not.be.null;\r",
+									"    pm.expect(response.user_contact_number).to.not.be.undefined;\r",
+									"    pm.expect(response.user_contact_number).to.not.be.null;\r",
+									"    pm.expect(response.user_contact_number).to.be.a('number').that.is.not.a('float');\r",
+									"    pm.expect(response.user_contact_number.toString()).to.have.lengthOf(10);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"if(typeof pm.variables.get('requestData')!== 'object'){\r",
+									"    pm.variables.set('requestData',pm.iterationData.toObject());\r",
+									"}\r",
+									"\r",
+									"const requestData = pm.variables.get('requestData');\r",
+									"console.log(requestData);\r",
+									"\r",
+									"if(typeof requestData!== 'object' ){\r",
+									"    console.log('No data passed from json file');\r",
+									"}\r",
+									"\r",
+									"console.log(pm.info.requestName);\r",
+									"\r",
+									"//Find current request\r",
+									"const currentRequest = requestData.requestsDatas.filter(({scenario}) => scenario === pm.info.requestName)[0];\r",
+									"\r",
+									"//If scenario has no data\r",
+									"if(!currentRequest){\r",
+									"    console.log('The scenario request ${pm.info.requestName} has no data');\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"//if(currentRequest){\r",
+									"    const variables = currentRequest.userData.shift();\r",
+									"\r",
+									"    Object.entries(variables).forEach(([key,value]) => {\r",
+									"        pm.variables.set(key,value);     \r",
+									"    });\r",
+									"    \r",
+									"        let useraddressprop = pm.variables.get(\"userAddress\");\r",
+									"        pm.collectionVariables.set(\"plotNumber\", useraddressprop.plotNumber);\r",
+									"        pm.collectionVariables.set(\"street\", useraddressprop.street);\r",
+									"        pm.collectionVariables.set(\"state\",useraddressprop.state);\r",
+									"        pm.collectionVariables.set(\"country\", useraddressprop.country);\r",
+									"        pm.collectionVariables.set(\"zipCode\", useraddressprop.zipCode);\r",
+									"//};\r",
+									"\r",
+									"pm.variables.set('requestData', requestData);\r",
+									"\r",
+									"//declare next request\r",
+									"if(currentRequest.userData.length >0){\r",
+									"    postman.setNextRequest(pm.info.requestName);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"user_first_name\":\"{{userfirstname}}\",\r\n \"user_last_name\":\"{{userlastname}}\",\r\n \"user_contact_number\":\"{{usercontactnumber}}\",\r\n \"user_email_id\":\"{{useremailid}}\",\r\n\"userAddress\": {\r\n    \"plotNumber\":\"{{plotNumber}}\",\r\n   \"street\":\"{{street}}\",\r\n   \"state\":\"{{state}}\",\r\n    \"country\":\"{{country}}\",\r\n   \"zipCode\":\"{{zipCode}}\"\r\n }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/updateuser/{{UserID_put}}",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"updateuser",
+								"{{UserID_put}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update UserLastName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"if(typeof pm.variables.get('requestData')!== 'object'){\r",
+									"    pm.variables.set('requestData',pm.iterationData.toObject());\r",
+									"}\r",
+									"\r",
+									"const requestData = pm.variables.get('requestData');\r",
+									"console.log(requestData);\r",
+									"\r",
+									"if(typeof requestData!== 'object' ){\r",
+									"    console.log('No data passed from json file');\r",
+									"}\r",
+									"\r",
+									"console.log(pm.info.requestName);\r",
+									"\r",
+									"//Find current request\r",
+									"const currentRequest = requestData.requestsDatas.filter(({scenario}) => scenario === pm.info.requestName)[0];\r",
+									"\r",
+									"//If scenario has no data\r",
+									"if(!currentRequest){\r",
+									"    console.log('The scenario request ${pm.info.requestName} has no data');\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"//if(currentRequest){\r",
+									"    const variables = currentRequest.userData.shift();\r",
+									"\r",
+									"    Object.entries(variables).forEach(([key,value]) => {\r",
+									"        pm.variables.set(key,value);     \r",
+									"    });\r",
+									"    \r",
+									"        let useraddressprop = pm.variables.get(\"userAddress\");\r",
+									"        pm.collectionVariables.set(\"plotNumber\", useraddressprop.plotNumber);\r",
+									"        pm.collectionVariables.set(\"street\", useraddressprop.street);\r",
+									"        pm.collectionVariables.set(\"state\",useraddressprop.state);\r",
+									"        pm.collectionVariables.set(\"country\", useraddressprop.country);\r",
+									"        pm.collectionVariables.set(\"zipCode\", useraddressprop.zipCode);\r",
+									"//};\r",
+									"\r",
+									"pm.variables.set('requestData', requestData);\r",
+									"\r",
+									"//declare next request\r",
+									"if(currentRequest.userData.length >0){\r",
+									"    postman.setNextRequest(pm.info.requestName);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"user_first_name\":\"{{userfirstname}}\",\r\n \"user_last_name\":\"{{userlastname}}\",\r\n \"user_contact_number\":\"{{usercontactnumber}}\",\r\n \"user_email_id\":\"{{useremailid}}\",\r\n\"userAddress\": {\r\n    \"plotNumber\":\"{{plotNumber}}\",\r\n   \"street\":\"{{street}}\",\r\n   \"state\":\"{{state}}\",\r\n    \"country\":\"{{country}}\",\r\n   \"zipCode\":\"{{zipCode}}\"\r\n }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/updateuser/{{UserID_put}}",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"updateuser",
+								"{{UserID_put}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create UserValidTwo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"const response = pm.response.json();\r",
+									"pm.collectionVariables.set(\"getUserIDToDel\",response.user_id);\r",
+									"\r",
+									"//Validate Status Code\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"//Validate Content-type and header\r",
+									"pm.test(\"Content-Type is application/json\", function () {\r",
+									"    pm.response.to.have.header('Content-Type');\r",
+									"    pm.response.to.have.header('Content-Type', 'application/json');\r",
+									"});\r",
+									"\r",
+									"//Validating Request and Response body\r",
+									"pm.test(\"Validate Request and Response Data\", function () {\r",
+									"    pm.expect(response).to.be.an(\"object\");\r",
+									"    pm.expect(response.user_first_name).to.eql(pm.variables.get(\"userfirstname\"));\r",
+									"    pm.expect(response.user_last_name).to.eql(pm.variables.get(\"userlastname\"));\r",
+									"    pm.expect(response.user_contact_number).to.eql(pm.variables.get(\"usercontactnumber\"));\r",
+									"    pm.expect(response.user_email_id).to.eql(pm.variables.get(\"useremailid\"));\r",
+									"   pm.expect(response.userAddress.plotNumber).to.eql(pm.variables.get(\"plotNumber\"));\r",
+									"   pm.expect(response.userAddress.street).to.eql(pm.variables.get(\"street\"));\r",
+									"   pm.expect(response.userAddress.state).to.eql(pm.variables.get(\"state\"));\r",
+									"   pm.expect(response.userAddress.country).to.eql(pm.variables.get(\"country\"));\r",
+									"   pm.expect(response.userAddress.zipCode).to.eql(pm.variables.get(\"zipCode\"));\r",
+									"\r",
+									"}); \r",
+									"\r",
+									"//validating response body\r",
+									"pm.test(\"Validate Response body properties\",() =>{   \r",
+									"    pm.expect(response.user_first_name).to.be.a('string');\r",
+									"    pm.expect(response.user_first_name).to.match(/^[A-Za-z]+$/);\r",
+									"    pm.expect(response.user_first_name).to.not.be.undefined;\r",
+									"    pm.expect(response.user_first_name).to.not.be.null;\r",
+									"    pm.expect(response.user_last_name).to.be.a('string');\r",
+									"    pm.expect(response.user_last_name).to.not.be.null;\r",
+									"    pm.expect(response.user_contact_number).to.not.be.undefined;\r",
+									"    pm.expect(response.user_contact_number).to.not.be.null;\r",
+									"    pm.expect(response.user_contact_number).to.be.a('number').that.is.not.a('float');\r",
+									"    pm.expect(response.user_contact_number.toString()).to.have.lengthOf(10);\r",
+									"\r",
+									"});\r",
+									"\r",
+									"//Validate Status Line\r",
+									"pm.test(\"Validate Status Line\", function () {\r",
+									"    pm.response.to.have.status(\"Created\");\r",
+									"});\r",
+									"\r",
+									"//Json schema validation\r",
+									"var schema = {\r",
+									"  \"type\": \"object\",\r",
+									"  \"properties\": {\r",
+									"    \"userAddress\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"addressId\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"plotNumber\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"street\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"state\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"country\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"zipCode\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"addressId\",\r",
+									"        \"plotNumber\",\r",
+									"        \"street\",\r",
+									"        \"state\",\r",
+									"        \"country\",\r",
+									"        \"zipCode\"\r",
+									"      ]\r",
+									"    },\r",
+									"    \"user_id\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    },\r",
+									"    \"user_first_name\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"user_last_name\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"user_contact_number\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    },\r",
+									"    \"user_email_id\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"creation_time\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"last_mod_time\": {\r",
+									"      \"type\": \"string\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"userAddress\",\r",
+									"    \"user_id\",\r",
+									"    \"user_first_name\",\r",
+									"    \"user_last_name\",\r",
+									"    \"user_contact_number\",\r",
+									"    \"user_email_id\",\r",
+									"    \"creation_time\",\r",
+									"    \"last_mod_time\"\r",
+									"  ]\r",
+									"}\r",
+									"pm.test(\"Schema is valid\", ()=>{\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"//pm.globals.set(\"jsonBody\", JSON.stringify(pm.iterationData.toObject()));\r",
+									"\r",
+									"if(typeof pm.variables.get('requestData')!== 'object'){\r",
+									"    pm.variables.set('requestData',pm.iterationData.toObject());\r",
+									"}\r",
+									"\r",
+									"const requestData = pm.variables.get('requestData');\r",
+									"console.log(requestData);\r",
+									"\r",
+									"if(typeof requestData!== 'object' ){\r",
+									"    console.log('No data passed from json file');\r",
+									"}\r",
+									"\r",
+									"console.log(pm.info.requestName);\r",
+									"\r",
+									"//Find current request\r",
+									"const currentRequest = requestData.requestsDatas.filter(({scenario}) => scenario === pm.info.requestName)[0];\r",
+									"\r",
+									"//If scenario has no data\r",
+									"if(!currentRequest){\r",
+									"    console.log('The scenario request ${pm.info.requestName} has no data');\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"//if(currentRequest){\r",
+									"    const variables = currentRequest.userData.shift();\r",
+									"\r",
+									"    Object.entries(variables).forEach(([key,value]) => {\r",
+									"        pm.variables.set(key,value);     \r",
+									"    });\r",
+									"    \r",
+									"        let useraddressprop = pm.variables.get(\"userAddress\");\r",
+									"        pm.collectionVariables.set(\"plotNumber\", useraddressprop.plotNumber);\r",
+									"        pm.collectionVariables.set(\"street\", useraddressprop.street);\r",
+									"        pm.collectionVariables.set(\"state\",useraddressprop.state);\r",
+									"        pm.collectionVariables.set(\"country\", useraddressprop.country);\r",
+									"        pm.collectionVariables.set(\"zipCode\", useraddressprop.zipCode);\r",
+									"\r",
+									"\r",
+									"pm.variables.set('requestData', requestData);\r",
+									"\r",
+									"//declare next request\r",
+									"if(currentRequest.userData.length >0){\r",
+									"    postman.setNextRequest(pm.info.requestName);\r",
+									"}\r",
+									"//};"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{LoginUsername}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"user_first_name\":\"{{userfirstname}}\",\r\n \"user_last_name\":\"{{userlastname}}\",\r\n \"user_contact_number\":\"{{usercontactnumber}}\",\r\n \"user_email_id\":\"{{useremailid}}\",\r\n\"userAddress\": {\r\n    \"plotNumber\":\"{{plotNumber}}\",\r\n   \"street\":\"{{street}}\",\r\n   \"state\":\"{{state}}\",\r\n    \"country\":\"{{country}}\",\r\n   \"zipCode\":\"{{zipCode}}\"\r\n }\r\n}\r\n\r\n\r\n//{{jsonBody}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/createusers",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"createusers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update UserConflictEmail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Validate Status Code\r",
+									"pm.test(\"Status code is 409\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"});\r",
+									"\r",
+									"//Validate Status Line\r",
+									"pm.test(\"Validate Status Line\", function () {\r",
+									"    pm.response.to.have.status(\"Conflict\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"if(typeof pm.variables.get('requestData')!== 'object'){\r",
+									"    pm.variables.set('requestData',pm.iterationData.toObject());\r",
+									"}\r",
+									"\r",
+									"const requestData = pm.variables.get('requestData');\r",
+									"console.log(requestData);\r",
+									"\r",
+									"if(typeof requestData!== 'object' ){\r",
+									"    console.log('No data passed from json file');\r",
+									"}\r",
+									"\r",
+									"console.log(pm.info.requestName);\r",
+									"\r",
+									"//Find current request\r",
+									"const currentRequest = requestData.requestsDatas.filter(({scenario}) => scenario === pm.info.requestName)[0];\r",
+									"\r",
+									"//If scenario has no data\r",
+									"if(!currentRequest){\r",
+									"    console.log('The scenario request ${pm.info.requestName} has no data');\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"//if(currentRequest){\r",
+									"    const variables = currentRequest.userData.shift();\r",
+									"\r",
+									"    Object.entries(variables).forEach(([key,value]) => {\r",
+									"        pm.variables.set(key,value);     \r",
+									"    });\r",
+									"    \r",
+									"        let useraddressprop = pm.variables.get(\"userAddress\");\r",
+									"        pm.collectionVariables.set(\"plotNumber\", useraddressprop.plotNumber);\r",
+									"        pm.collectionVariables.set(\"street\", useraddressprop.street);\r",
+									"        pm.collectionVariables.set(\"state\",useraddressprop.state);\r",
+									"        pm.collectionVariables.set(\"country\", useraddressprop.country);\r",
+									"        pm.collectionVariables.set(\"zipCode\", useraddressprop.zipCode);\r",
+									"//};\r",
+									"\r",
+									"pm.variables.set('requestData', requestData);\r",
+									"\r",
+									"//declare next request\r",
+									"if(currentRequest.userData.length >0){\r",
+									"    postman.setNextRequest(pm.info.requestName);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"user_first_name\":\"{{userfirstname}}\",\r\n \"user_last_name\":\"{{userlastname}}\",\r\n \"user_contact_number\":\"{{usercontactnumber}}\",\r\n \"user_email_id\":\"{{useremailid}}\",\r\n\"userAddress\": {\r\n    \"plotNumber\":\"{{plotNumber}}\",\r\n   \"street\":\"{{street}}\",\r\n   \"state\":\"{{state}}\",\r\n    \"country\":\"{{country}}\",\r\n   \"zipCode\":\"{{zipCode}}\"\r\n }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/updateuser/{{UserID_put}}",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"updateuser",
+								"{{UserID_put}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update UserConflictPhoneNo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Validate Status Code\r",
+									"pm.test(\"Status code is 409\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"});\r",
+									"\r",
+									"//Validate Status Line\r",
+									"pm.test(\"Validate Status Line\", function () {\r",
+									"    pm.response.to.have.status(\"Conflict\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"if(typeof pm.variables.get('requestData')!== 'object'){\r",
+									"    pm.variables.set('requestData',pm.iterationData.toObject());\r",
+									"}\r",
+									"\r",
+									"const requestData = pm.variables.get('requestData');\r",
+									"console.log(requestData);\r",
+									"\r",
+									"if(typeof requestData!== 'object' ){\r",
+									"    console.log('No data passed from json file');\r",
+									"}\r",
+									"\r",
+									"console.log(pm.info.requestName);\r",
+									"\r",
+									"//Find current request\r",
+									"const currentRequest = requestData.requestsDatas.filter(({scenario}) => scenario === pm.info.requestName)[0];\r",
+									"\r",
+									"//If scenario has no data\r",
+									"if(!currentRequest){\r",
+									"    console.log('The scenario request ${pm.info.requestName} has no data');\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"//if(currentRequest){\r",
+									"    const variables = currentRequest.userData.shift();\r",
+									"\r",
+									"    Object.entries(variables).forEach(([key,value]) => {\r",
+									"        pm.variables.set(key,value);     \r",
+									"    });\r",
+									"    \r",
+									"        let useraddressprop = pm.variables.get(\"userAddress\");\r",
+									"        pm.collectionVariables.set(\"plotNumber\", useraddressprop.plotNumber);\r",
+									"        pm.collectionVariables.set(\"street\", useraddressprop.street);\r",
+									"        pm.collectionVariables.set(\"state\",useraddressprop.state);\r",
+									"        pm.collectionVariables.set(\"country\", useraddressprop.country);\r",
+									"        pm.collectionVariables.set(\"zipCode\", useraddressprop.zipCode);\r",
+									"//};\r",
+									"\r",
+									"pm.variables.set('requestData', requestData);\r",
+									"\r",
+									"//declare next request\r",
+									"if(currentRequest.userData.length >0){\r",
+									"    postman.setNextRequest(pm.info.requestName);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"user_first_name\":\"{{userfirstname}}\",\r\n \"user_last_name\":\"{{userlastname}}\",\r\n \"user_contact_number\":\"{{usercontactnumber}}\",\r\n \"user_email_id\":\"{{useremailid}}\",\r\n\"userAddress\": {\r\n    \"plotNumber\":\"{{plotNumber}}\",\r\n   \"street\":\"{{street}}\",\r\n   \"state\":\"{{state}}\",\r\n    \"country\":\"{{country}}\",\r\n   \"zipCode\":\"{{zipCode}}\"\r\n }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/updateuser/{{UserID_put}}",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"updateuser",
+								"{{UserID_put}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get_byUpdatedUserName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Json schema validation\r",
+									"var schema = {\r",
+									"  \"type\": \"array\",\r",
+									"  \"properties\": {\r",
+									"    \"userAddress\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"addressId\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"plotNumber\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"street\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"state\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"country\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"zipCode\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"addressId\",\r",
+									"        \"plotNumber\",\r",
+									"        \"street\",\r",
+									"        \"state\",\r",
+									"        \"country\",\r",
+									"        \"zipCode\"\r",
+									"      ]\r",
+									"    },\r",
+									"    \"user_id\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    },\r",
+									"    \"user_first_name\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"user_last_name\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"user_contact_number\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    },\r",
+									"    \"user_email_id\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"creation_time\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"last_mod_time\": {\r",
+									"      \"type\": \"string\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"userAddress\",\r",
+									"    \"user_id\",\r",
+									"    \"user_first_name\",\r",
+									"    \"user_last_name\",\r",
+									"    \"user_contact_number\",\r",
+									"    \"user_email_id\",\r",
+									"    \"creation_time\",\r",
+									"    \"last_mod_time\"\r",
+									"  ]\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Schema is valid\", ()=>{\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "tim123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "Numpy@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/users/username/{{getUserName}}",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"users",
+								"username",
+								"{{getUserName}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetALLUsers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//Json schema validation\r",
+									"var schema = {\r",
+									"  \"type\": \"array\",\r",
+									"  \"properties\": {\r",
+									"    \"userAddress\": {\r",
+									"      \"type\": \"object\",\r",
+									"      \"properties\": {\r",
+									"        \"addressId\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"plotNumber\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"street\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"state\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"country\": {\r",
+									"          \"type\": \"string\"\r",
+									"        },\r",
+									"        \"zipCode\": {\r",
+									"          \"type\": \"integer\"\r",
+									"        }\r",
+									"      },\r",
+									"      \"required\": [\r",
+									"        \"addressId\",\r",
+									"        \"plotNumber\",\r",
+									"        \"street\",\r",
+									"        \"state\",\r",
+									"        \"country\",\r",
+									"        \"zipCode\"\r",
+									"      ]\r",
+									"    },\r",
+									"    \"user_id\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    },\r",
+									"    \"user_first_name\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"user_last_name\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"user_contact_number\": {\r",
+									"      \"type\": \"integer\"\r",
+									"    },\r",
+									"    \"user_email_id\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"creation_time\": {\r",
+									"      \"type\": \"string\"\r",
+									"    },\r",
+									"    \"last_mod_time\": {\r",
+									"      \"type\": \"string\"\r",
+									"    }\r",
+									"  },\r",
+									"  \"required\": [\r",
+									"    \"userAddress\",\r",
+									"    \"user_id\",\r",
+									"    \"user_first_name\",\r",
+									"    \"user_last_name\",\r",
+									"    \"user_contact_number\",\r",
+									"    \"user_email_id\",\r",
+									"    \"creation_time\",\r",
+									"    \"last_mod_time\"\r",
+									"  ]\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Schema is valid\", ()=>{\r",
+									"    pm.response.to.have.jsonSchema(schema);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{LoginUsername}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/users",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create UserConflictEmail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//const response = pm.response.json();\r",
+									"//console.log(response);\r",
+									"//const response = JSON.parse(responseBody);\r",
+									"\r",
+									"\r",
+									"//-----------------------------------------------------\r",
+									"// let responsesName = pm.collectionVariables.get('collectionResponses');\r",
+									"// let responsesID = pm.collectionVariables.get('collectionResponsesID');\r",
+									"\r",
+									"//creating an array and adding data into it \r",
+									"// if(responsesName) {\r",
+									"//   responsesName = JSON.parse(responsesName);\r",
+									"//   responsesID = JSON.parse(responsesID);\r",
+									"// } else {\r",
+									"//   responsesName = [];\r",
+									"//   responsesID = [];\r",
+									"// }\r",
+									"\r",
+									"// responsesName.push(response.user_first_name);\r",
+									"// responsesID.push(response.user_id);\r",
+									"\r",
+									"// // Convert the 'responses' into a JSON string\r",
+									"// pm.collectionVariables.set('collectionResponses', JSON.stringify(responsesName));\r",
+									"// pm.collectionVariables.set('collectionResponsesID', JSON.stringify(responsesID));\r",
+									"\r",
+									"\r",
+									"// pm.collectionVariables.set('UserNameToDel',responsesName[0]);\r",
+									"// pm.collectionVariables.set('UserIDToDel',responsesID[1]);\r",
+									"\r",
+									"// console.log(pm.collectionVariables.get('UserNameToDel'));\r",
+									"// console.log(responsesName[1]);\r",
+									"// console.log(pm.collectionVariables.get('UserIDToDel'));\r",
+									"\r",
+									"//-------------------------------------------------------\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"//Validate Status Code\r",
+									"pm.test(\"Status code is 409\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"});\r",
+									"\r",
+									"//Validate Status Line\r",
+									"pm.test(\"Validate Status Line\", function () {\r",
+									"    pm.response.to.have.status(\"Conflict\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"//pm.globals.set(\"jsonBody\", JSON.stringify(pm.iterationData.toObject()));\r",
+									"\r",
+									"if(typeof pm.variables.get('requestData')!== 'object'){\r",
+									"    pm.variables.set('requestData',pm.iterationData.toObject());\r",
+									"}\r",
+									"\r",
+									"const requestData = pm.variables.get('requestData');\r",
+									"console.log(requestData);\r",
+									"\r",
+									"if(typeof requestData!== 'object' ){\r",
+									"    console.log('No data passed from json file');\r",
+									"}\r",
+									"\r",
+									"console.log(pm.info.requestName);\r",
+									"\r",
+									"//Find current request\r",
+									"const currentRequest = requestData.requestsDatas.filter(({scenario}) => scenario === pm.info.requestName)[0];\r",
+									"\r",
+									"//If scenario has no data\r",
+									"if(!currentRequest){\r",
+									"    console.log('The scenario request ${pm.info.requestName} has no data');\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"//if(currentRequest){\r",
+									"    const variables = currentRequest.userData.shift();\r",
+									"\r",
+									"    Object.entries(variables).forEach(([key,value]) => {\r",
+									"        pm.variables.set(key,value);     \r",
+									"    });\r",
+									"    \r",
+									"        let useraddressprop = pm.variables.get(\"userAddress\");\r",
+									"        pm.collectionVariables.set(\"plotNumber\", useraddressprop.plotNumber);\r",
+									"        pm.collectionVariables.set(\"street\", useraddressprop.street);\r",
+									"        pm.collectionVariables.set(\"state\",useraddressprop.state);\r",
+									"        pm.collectionVariables.set(\"country\", useraddressprop.country);\r",
+									"        pm.collectionVariables.set(\"zipCode\", useraddressprop.zipCode);\r",
+									"//};\r",
+									"\r",
+									"pm.variables.set('requestData', requestData);\r",
+									"\r",
+									"//declare next request\r",
+									"if(currentRequest.userData.length >0){\r",
+									"    postman.setNextRequest(pm.info.requestName);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{LoginUsername}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"user_first_name\":\"{{userfirstname}}\",\r\n \"user_last_name\":\"{{userlastname}}\",\r\n \"user_contact_number\":\"{{usercontactnumber}}\",\r\n \"user_email_id\":\"{{useremailid}}\",\r\n\"userAddress\": {\r\n    \"plotNumber\":\"{{plotNumber}}\",\r\n   \"street\":\"{{street}}\",\r\n   \"state\":\"{{state}}\",\r\n    \"country\":\"{{country}}\",\r\n   \"zipCode\":\"{{zipCode}}\"\r\n }\r\n}\r\n\r\n\r\n//{{jsonBody}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/createusers",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"createusers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create UserConflictPhone",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//const response = pm.response.json();\r",
+									"//console.log(response);\r",
+									"//const response = JSON.parse(responseBody);\r",
+									"\r",
+									"\r",
+									"//-----------------------------------------------------\r",
+									"// let responsesName = pm.collectionVariables.get('collectionResponses');\r",
+									"// let responsesID = pm.collectionVariables.get('collectionResponsesID');\r",
+									"\r",
+									"//creating an array and adding data into it \r",
+									"// if(responsesName) {\r",
+									"//   responsesName = JSON.parse(responsesName);\r",
+									"//   responsesID = JSON.parse(responsesID);\r",
+									"// } else {\r",
+									"//   responsesName = [];\r",
+									"//   responsesID = [];\r",
+									"// }\r",
+									"\r",
+									"// responsesName.push(response.user_first_name);\r",
+									"// responsesID.push(response.user_id);\r",
+									"\r",
+									"// // Convert the 'responses' into a JSON string\r",
+									"// pm.collectionVariables.set('collectionResponses', JSON.stringify(responsesName));\r",
+									"// pm.collectionVariables.set('collectionResponsesID', JSON.stringify(responsesID));\r",
+									"\r",
+									"\r",
+									"// pm.collectionVariables.set('UserNameToDel',responsesName[0]);\r",
+									"// pm.collectionVariables.set('UserIDToDel',responsesID[1]);\r",
+									"\r",
+									"// console.log(pm.collectionVariables.get('UserNameToDel'));\r",
+									"// console.log(responsesName[1]);\r",
+									"// console.log(pm.collectionVariables.get('UserIDToDel'));\r",
+									"\r",
+									"//-------------------------------------------------------\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"//Validate Status Code\r",
+									"pm.test(\"Status code is 409\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"});\r",
+									"\r",
+									"//Validate Status Line\r",
+									"pm.test(\"Validate Status Line\", function () {\r",
+									"    pm.response.to.have.status(\"Conflict\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"//pm.globals.set(\"jsonBody\", JSON.stringify(pm.iterationData.toObject()));\r",
+									"\r",
+									"if(typeof pm.variables.get('requestData')!== 'object'){\r",
+									"    pm.variables.set('requestData',pm.iterationData.toObject());\r",
+									"}\r",
+									"\r",
+									"const requestData = pm.variables.get('requestData');\r",
+									"console.log(requestData);\r",
+									"\r",
+									"if(typeof requestData!== 'object' ){\r",
+									"    console.log('No data passed from json file');\r",
+									"}\r",
+									"\r",
+									"console.log(pm.info.requestName);\r",
+									"\r",
+									"//Find current request\r",
+									"const currentRequest = requestData.requestsDatas.filter(({scenario}) => scenario === pm.info.requestName)[0];\r",
+									"\r",
+									"//If scenario has no data\r",
+									"if(!currentRequest){\r",
+									"    console.log('The scenario request ${pm.info.requestName} has no data');\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"//if(currentRequest){\r",
+									"    const variables = currentRequest.userData.shift();\r",
+									"\r",
+									"    Object.entries(variables).forEach(([key,value]) => {\r",
+									"        pm.variables.set(key,value);     \r",
+									"    });\r",
+									"    \r",
+									"        let useraddressprop = pm.variables.get(\"userAddress\");\r",
+									"        pm.collectionVariables.set(\"plotNumber\", useraddressprop.plotNumber);\r",
+									"        pm.collectionVariables.set(\"street\", useraddressprop.street);\r",
+									"        pm.collectionVariables.set(\"state\",useraddressprop.state);\r",
+									"        pm.collectionVariables.set(\"country\", useraddressprop.country);\r",
+									"        pm.collectionVariables.set(\"zipCode\", useraddressprop.zipCode);\r",
+									"//};\r",
+									"\r",
+									"pm.variables.set('requestData', requestData);\r",
+									"\r",
+									"//declare next request\r",
+									"if(currentRequest.userData.length >0){\r",
+									"    postman.setNextRequest(pm.info.requestName);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{LoginUsername}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"user_first_name\":\"{{userfirstname}}\",\r\n \"user_last_name\":\"{{userlastname}}\",\r\n \"user_contact_number\":\"{{usercontactnumber}}\",\r\n \"user_email_id\":\"{{useremailid}}\",\r\n\"userAddress\": {\r\n    \"plotNumber\":\"{{plotNumber}}\",\r\n   \"street\":\"{{street}}\",\r\n   \"state\":\"{{state}}\",\r\n    \"country\":\"{{country}}\",\r\n   \"zipCode\":\"{{zipCode}}\"\r\n }\r\n}\r\n\r\n\r\n//{{jsonBody}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/createusers",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"createusers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteByName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"console.log(pm.response.json());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{LoginUsername}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURL}}/deleteuser/username/{{getUserName}}",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"deleteuser",
+								"username",
+								"{{getUserName}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteByID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"console.log(pm.response.json());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURL}}/deleteuser/{{getUserIDToDel}}",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"deleteuser",
+								"{{getUserIDToDel}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "NegativeScenarios",
+			"item": [
+				{
+					"name": "N_Invalid_Authorization",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401 Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{password_invalid}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{Login_invalid}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURL}}/users",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "N_GetAllUsers_InvalidEndpoint",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404 Not Found\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{LoginUsername}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseURL}}/user",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "N_UserMissingName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"//Validate Status Code\r",
+									"pm.test(\"Status code is 400 Bad Request\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"//Validate Status Line\r",
+									"pm.test(\"Validate Status Line\", function () {\r",
+									"    pm.response.to.have.status(\"Bad Request\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"//pm.globals.set(\"jsonBody\", JSON.stringify(pm.iterationData.toObject()));\r",
+									"\r",
+									"if(typeof pm.variables.get('requestData')!== 'object'){\r",
+									"    pm.variables.set('requestData',pm.iterationData.toObject());\r",
+									"}\r",
+									"\r",
+									"const requestData = pm.variables.get('requestData');\r",
+									"console.log(requestData);\r",
+									"\r",
+									"if(typeof requestData!== 'object' ){\r",
+									"    console.log('No data passed from json file');\r",
+									"}\r",
+									"\r",
+									"console.log(pm.info.requestName);\r",
+									"\r",
+									"//Find current request\r",
+									"const currentRequest = requestData.requestsDatas.filter(({scenario}) => scenario === pm.info.requestName)[0];\r",
+									"\r",
+									"//If scenario has no data\r",
+									"if(!currentRequest){\r",
+									"    console.log('The scenario request ${pm.info.requestName} has no data');\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"//if(currentRequest){\r",
+									"    const variables = currentRequest.userData.shift();\r",
+									"\r",
+									"    Object.entries(variables).forEach(([key,value]) => {\r",
+									"        pm.variables.set(key,value);     \r",
+									"    });\r",
+									"    \r",
+									"        let useraddressprop = pm.variables.get(\"userAddress\");\r",
+									"        pm.collectionVariables.set(\"plotNumber\", useraddressprop.plotNumber);\r",
+									"        pm.collectionVariables.set(\"street\", useraddressprop.street);\r",
+									"        pm.collectionVariables.set(\"state\",useraddressprop.state);\r",
+									"        pm.collectionVariables.set(\"country\", useraddressprop.country);\r",
+									"        pm.collectionVariables.set(\"zipCode\", useraddressprop.zipCode);\r",
+									"//};\r",
+									"\r",
+									"pm.variables.set('requestData', requestData);\r",
+									"\r",
+									"//declare next request\r",
+									"if(currentRequest.userData.length >0){\r",
+									"    postman.setNextRequest(pm.info.requestName);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{LoginUsername}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"user_first_name\":\"{{userfirstname}}\",\r\n \"user_last_name\":\"{{userlastname}}\",\r\n \"user_contact_number\":\"{{usercontactnumber}}\",\r\n \"user_email_id\":\"{{useremailid}}\",\r\n\"userAddress\": {\r\n    \"plotNumber\":\"{{plotNumber}}\",\r\n   \"street\":\"{{street}}\",\r\n   \"state\":\"{{state}}\",\r\n    \"country\":\"{{country}}\",\r\n   \"zipCode\":\"{{zipCode}}\"\r\n }\r\n}\r\n\r\n\r\n//{{jsonBody}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/createusers",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"createusers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "N_UserMissingLastName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"//Validate Status Code\r",
+									"pm.test(\"Status code is 400 Bad Request\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"//Validate Status Line\r",
+									"pm.test(\"Validate Status Line\", function () {\r",
+									"    pm.response.to.have.status(\"Bad Request\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"//pm.globals.set(\"jsonBody\", JSON.stringify(pm.iterationData.toObject()));\r",
+									"\r",
+									"if(typeof pm.variables.get('requestData')!== 'object'){\r",
+									"    pm.variables.set('requestData',pm.iterationData.toObject());\r",
+									"}\r",
+									"\r",
+									"const requestData = pm.variables.get('requestData');\r",
+									"console.log(requestData);\r",
+									"\r",
+									"if(typeof requestData!== 'object' ){\r",
+									"    console.log('No data passed from json file');\r",
+									"}\r",
+									"\r",
+									"console.log(pm.info.requestName);\r",
+									"\r",
+									"//Find current request\r",
+									"const currentRequest = requestData.requestsDatas.filter(({scenario}) => scenario === pm.info.requestName)[0];\r",
+									"\r",
+									"//If scenario has no data\r",
+									"if(!currentRequest){\r",
+									"    console.log('The scenario request ${pm.info.requestName} has no data');\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"//if(currentRequest){\r",
+									"    const variables = currentRequest.userData.shift();\r",
+									"\r",
+									"    Object.entries(variables).forEach(([key,value]) => {\r",
+									"        pm.variables.set(key,value);     \r",
+									"    });\r",
+									"    \r",
+									"        let useraddressprop = pm.variables.get(\"userAddress\");\r",
+									"        pm.collectionVariables.set(\"plotNumber\", useraddressprop.plotNumber);\r",
+									"        pm.collectionVariables.set(\"street\", useraddressprop.street);\r",
+									"        pm.collectionVariables.set(\"state\",useraddressprop.state);\r",
+									"        pm.collectionVariables.set(\"country\", useraddressprop.country);\r",
+									"        pm.collectionVariables.set(\"zipCode\", useraddressprop.zipCode);\r",
+									"//};\r",
+									"\r",
+									"pm.variables.set('requestData', requestData);\r",
+									"\r",
+									"//declare next request\r",
+									"if(currentRequest.userData.length >0){\r",
+									"    postman.setNextRequest(pm.info.requestName);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{LoginUsername}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"user_first_name\":\"{{userfirstname}}\",\r\n \"user_last_name\":\"{{userlastname}}\",\r\n \"user_contact_number\":\"{{usercontactnumber}}\",\r\n \"user_email_id\":\"{{useremailid}}\",\r\n\"userAddress\": {\r\n    \"plotNumber\":\"{{plotNumber}}\",\r\n   \"street\":\"{{street}}\",\r\n   \"state\":\"{{state}}\",\r\n    \"country\":\"{{country}}\",\r\n   \"zipCode\":\"{{zipCode}}\"\r\n }\r\n}\r\n\r\n\r\n//{{jsonBody}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/createusers",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"createusers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "N_InvalidUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//validate Status code\r",
+									"pm.test(\"Status code is 404 Not Found\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"if(typeof pm.variables.get('requestData')!== 'object'){\r",
+									"    pm.variables.set('requestData',pm.iterationData.toObject());\r",
+									"}\r",
+									"\r",
+									"const requestData = pm.variables.get('requestData');\r",
+									"console.log(requestData);\r",
+									"\r",
+									"if(typeof requestData!== 'object' ){\r",
+									"    console.log('No data passed from json file');\r",
+									"}\r",
+									"\r",
+									"console.log(pm.info.requestName);\r",
+									"\r",
+									"//Find current request\r",
+									"const currentRequest = requestData.requestsDatas.filter(({scenario}) => scenario === pm.info.requestName)[0];\r",
+									"\r",
+									"//If scenario has no data\r",
+									"if(!currentRequest){\r",
+									"    console.log('The scenario request ${pm.info.requestName} has no data');\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"//if(currentRequest){\r",
+									"    const variables = currentRequest.userData.shift();\r",
+									"\r",
+									"    Object.entries(variables).forEach(([key,value]) => {\r",
+									"        pm.variables.set(key,value);     \r",
+									"    });\r",
+									"    \r",
+									"        let useraddressprop = pm.variables.get(\"userAddress\");\r",
+									"        pm.collectionVariables.set(\"plotNumber\", useraddressprop.plotNumber);\r",
+									"        pm.collectionVariables.set(\"street\", useraddressprop.street);\r",
+									"        pm.collectionVariables.set(\"state\",useraddressprop.state);\r",
+									"        pm.collectionVariables.set(\"country\", useraddressprop.country);\r",
+									"        pm.collectionVariables.set(\"zipCode\", useraddressprop.zipCode);\r",
+									"//};\r",
+									"\r",
+									"pm.variables.set('requestData', requestData);\r",
+									"\r",
+									"//declare next request\r",
+									"if(currentRequest.userData.length >0){\r",
+									"    postman.setNextRequest(pm.info.requestName);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"user_first_name\":\"{{userfirstname}}\",\r\n \"user_last_name\":\"{{userlastname}}\",\r\n \"user_contact_number\":\"{{usercontactnumber}}\",\r\n \"user_email_id\":\"{{useremailid}}\",\r\n\"userAddress\": {\r\n    \"plotNumber\":\"{{plotNumber}}\",\r\n   \"street\":\"{{street}}\",\r\n   \"state\":\"{{state}}\",\r\n    \"country\":\"{{country}}\",\r\n   \"zipCode\":\"{{zipCode}}\"\r\n }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/updateuser/{{UserIdInvalid}}",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"updateuser",
+								"{{UserIdInvalid}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{password}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{LoginUsername}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseURL",
+			"value": "https://userapi-8877aadaae71.herokuapp.com/uap",
+			"type": "string"
+		},
+		{
+			"key": "LoginUsername",
+			"value": "Numpy@gmail.com",
+			"type": "string"
+		},
+		{
+			"key": "password",
+			"value": "tim123",
+			"type": "string"
+		},
+		{
+			"key": "UserIdInvalid",
+			"value": "0000000",
+			"type": "string"
+		},
+		{
+			"key": "plotNumber",
+			"value": ""
+		},
+		{
+			"key": "street",
+			"value": ""
+		},
+		{
+			"key": "state",
+			"value": ""
+		},
+		{
+			"key": "country",
+			"value": ""
+		},
+		{
+			"key": "zipCode",
+			"value": ""
+		},
+		{
+			"key": "UserID_put",
+			"value": ""
+		},
+		{
+			"key": "getUserName",
+			"value": ""
+		},
+		{
+			"key": "getUserIDToDel",
+			"value": ""
+		}
+	]
+}
