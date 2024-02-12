@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "833b2337-9ce3-4a32-95be-d3fc4b6aa97e",
-		"name": "USER Module",
+		"name": "USER_Module",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "28665570",
 		"_collection_link": "https://orange-moon-223926.postman.co/workspace/API_Bootcamp~3df9105d-4030-44d3-a4ef-882e3ac32168/collection/28665570-833b2337-9ce3-4a32-95be-d3fc4b6aa97e?action=share&source=collection_link&creator=28665570"
@@ -99,6 +99,16 @@
 									"    pm.expect(response.user_contact_number).to.be.a('number').that.is.not.a('float');\r",
 									"    pm.expect(response.user_contact_number.toString()).to.have.lengthOf(10);\r",
 									"\r",
+									"    const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;\r",
+									"    const emailData = response.user_email_id;\r",
+									"\r",
+									"    // Check if the email field is not empty and matches the email regex\r",
+									"    if (emailData && emailRegex.test(emailData)) {\r",
+									"        console.log('Email is valid:', emailData);\r",
+									"    } else {\r",
+									"    // If the email is not valid, you can either log an error or fail the test\r",
+									"    console.error('Invalid email:', emailData);\r",
+									"    }\r",
 									"});\r",
 									"\r",
 									"\r",
@@ -939,6 +949,213 @@
 					"response": []
 				},
 				{
+					"name": "Update UserPhoneNo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"//validating response body\r",
+									"pm.test(\"Validate Response body properties\",() =>{   \r",
+									"    pm.expect(response.user_first_name).to.be.a('string');\r",
+									"    pm.expect(response.user_first_name).to.match(/^[A-Za-z]+$/);\r",
+									"    pm.expect(response.user_first_name).to.not.be.undefined;\r",
+									"    pm.expect(response.user_first_name).to.not.be.null;\r",
+									"    pm.expect(response.user_last_name).to.be.a('string');\r",
+									"    pm.expect(response.user_last_name).to.not.be.null;\r",
+									"    pm.expect(response.user_contact_number).to.not.be.undefined;\r",
+									"    pm.expect(response.user_contact_number).to.not.be.null;\r",
+									"    pm.expect(response.user_contact_number).to.be.a('number').that.is.not.a('float');\r",
+									"    pm.expect(response.user_contact_number.toString()).to.have.lengthOf(10);\r",
+									"\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"if(typeof pm.variables.get('requestData')!== 'object'){\r",
+									"    pm.variables.set('requestData',pm.iterationData.toObject());\r",
+									"}\r",
+									"\r",
+									"const requestData = pm.variables.get('requestData');\r",
+									"console.log(requestData);\r",
+									"\r",
+									"if(typeof requestData!== 'object' ){\r",
+									"    console.log('No data passed from json file');\r",
+									"}\r",
+									"\r",
+									"console.log(pm.info.requestName);\r",
+									"\r",
+									"//Find current request\r",
+									"const currentRequest = requestData.requestsDatas.filter(({scenario}) => scenario === pm.info.requestName)[0];\r",
+									"\r",
+									"//If scenario has no data\r",
+									"if(!currentRequest){\r",
+									"    console.log('The scenario request ${pm.info.requestName} has no data');\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"//if(currentRequest){\r",
+									"    const variables = currentRequest.userData.shift();\r",
+									"\r",
+									"    Object.entries(variables).forEach(([key,value]) => {\r",
+									"        pm.variables.set(key,value);     \r",
+									"    });\r",
+									"    \r",
+									"        let useraddressprop = pm.variables.get(\"userAddress\");\r",
+									"        pm.collectionVariables.set(\"plotNumber\", useraddressprop.plotNumber);\r",
+									"        pm.collectionVariables.set(\"street\", useraddressprop.street);\r",
+									"        pm.collectionVariables.set(\"state\",useraddressprop.state);\r",
+									"        pm.collectionVariables.set(\"country\", useraddressprop.country);\r",
+									"        pm.collectionVariables.set(\"zipCode\", useraddressprop.zipCode);\r",
+									"//};\r",
+									"\r",
+									"pm.variables.set('requestData', requestData);\r",
+									"\r",
+									"//declare next request\r",
+									"if(currentRequest.userData.length >0){\r",
+									"    postman.setNextRequest(pm.info.requestName);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"user_first_name\":\"{{userfirstname}}\",\r\n \"user_last_name\":\"{{userlastname}}\",\r\n \"user_contact_number\":\"{{usercontactnumber}}\",\r\n \"user_email_id\":\"{{useremailid}}\",\r\n\"userAddress\": {\r\n    \"plotNumber\":\"{{plotNumber}}\",\r\n   \"street\":\"{{street}}\",\r\n   \"state\":\"{{state}}\",\r\n    \"country\":\"{{country}}\",\r\n   \"zipCode\":\"{{zipCode}}\"\r\n }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/updateuser/{{UserID_put}}",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"updateuser",
+								"{{UserID_put}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update UserEmail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"if(typeof pm.variables.get('requestData')!== 'object'){\r",
+									"    pm.variables.set('requestData',pm.iterationData.toObject());\r",
+									"}\r",
+									"\r",
+									"const requestData = pm.variables.get('requestData');\r",
+									"console.log(requestData);\r",
+									"\r",
+									"if(typeof requestData!== 'object' ){\r",
+									"    console.log('No data passed from json file');\r",
+									"}\r",
+									"\r",
+									"console.log(pm.info.requestName);\r",
+									"\r",
+									"//Find current request\r",
+									"const currentRequest = requestData.requestsDatas.filter(({scenario}) => scenario === pm.info.requestName)[0];\r",
+									"\r",
+									"//If scenario has no data\r",
+									"if(!currentRequest){\r",
+									"    console.log('The scenario request ${pm.info.requestName} has no data');\r",
+									"    return;\r",
+									"}\r",
+									"\r",
+									"//if(currentRequest){\r",
+									"    const variables = currentRequest.userData.shift();\r",
+									"\r",
+									"    Object.entries(variables).forEach(([key,value]) => {\r",
+									"        pm.variables.set(key,value);     \r",
+									"    });\r",
+									"    \r",
+									"        let useraddressprop = pm.variables.get(\"userAddress\");\r",
+									"        pm.collectionVariables.set(\"plotNumber\", useraddressprop.plotNumber);\r",
+									"        pm.collectionVariables.set(\"street\", useraddressprop.street);\r",
+									"        pm.collectionVariables.set(\"state\",useraddressprop.state);\r",
+									"        pm.collectionVariables.set(\"country\", useraddressprop.country);\r",
+									"        pm.collectionVariables.set(\"zipCode\", useraddressprop.zipCode);\r",
+									"//};\r",
+									"\r",
+									"pm.variables.set('requestData', requestData);\r",
+									"\r",
+									"//declare next request\r",
+									"if(currentRequest.userData.length >0){\r",
+									"    postman.setNextRequest(pm.info.requestName);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"user_first_name\":\"{{userfirstname}}\",\r\n \"user_last_name\":\"{{userlastname}}\",\r\n \"user_contact_number\":\"{{usercontactnumber}}\",\r\n \"user_email_id\":\"{{useremailid}}\",\r\n\"userAddress\": {\r\n    \"plotNumber\":\"{{plotNumber}}\",\r\n   \"street\":\"{{street}}\",\r\n   \"state\":\"{{state}}\",\r\n    \"country\":\"{{country}}\",\r\n   \"zipCode\":\"{{zipCode}}\"\r\n }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseURL}}/updateuser/{{UserID_put}}",
+							"host": [
+								"{{BaseURL}}"
+							],
+							"path": [
+								"updateuser",
+								"{{UserID_put}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get_byUpdatedUserName",
 					"event": [
 						{
@@ -1633,7 +1850,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Status code is 404 Not Found\", function () {\r",
-									"    pm.response.to.have.status(400);\r",
+									"    pm.response.to.have.status(404);\r",
 									"});"
 								],
 								"type": "text/javascript"
